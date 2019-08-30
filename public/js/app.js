@@ -2608,7 +2608,7 @@ var message = ["vue.draggable", "draggable", "component", "for", "vue.js 2.0", "
       var resultado = 0;
 
       for (var i = 0; i < this.arrayDetallePlaylist.length; i++) {
-        resultado = this.arrayDetallePlaylist[i].lenght;
+        resultado = resultado + parseInt(this.arrayDetallePlaylist[i].lenght);
       }
 
       return resultado;
@@ -41827,7 +41827,28 @@ var render = function() {
                   0
                 ),
                 _vm._v(" "),
-                _vm._m(6)
+                _c("tfoot", [
+                  _c("tr", [
+                    _c("td"),
+                    _vm._v(" "),
+                    _c("td"),
+                    _vm._v(" "),
+                    _c("td"),
+                    _vm._v(" "),
+                    _c("td"),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("i", { staticClass: "ion ion-md-clock " }),
+                      _vm._v(
+                        " " +
+                          _vm._s(
+                            (_vm.totalParcial = _vm.calcularParcialLengthVideo)
+                          ) +
+                          "    "
+                      )
+                    ])
+                  ])
+                ])
               ],
               1
             )
@@ -41846,11 +41867,11 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          _vm._m(7)
+          _vm._m(6)
         ])
       ]),
       _vm._v(" "),
-      _vm._m(8)
+      _vm._m(7)
     ])
   ])
 }
@@ -42016,27 +42037,6 @@ var staticRenderFns = [
         _c("th", [_vm._v("Duración")]),
         _vm._v(" "),
         _c("th", [_vm._v("Borrar")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tfoot", [
-      _c("tr", [
-        _c("td"),
-        _vm._v(" "),
-        _c("td"),
-        _vm._v(" "),
-        _c("td"),
-        _vm._v(" "),
-        _c("td"),
-        _vm._v(" "),
-        _c("td", [
-          _c("i", { staticClass: "ion ion-md-clock " }),
-          _vm._v(" 00:00:00    ")
-        ])
       ])
     ])
   },
@@ -57818,8 +57818,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\laragon\www\vertical\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\laragon\www\vertical\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Applications/MAMP/htdocs/laravel2/testComputed/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Applications/MAMP/htdocs/laravel2/testComputed/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

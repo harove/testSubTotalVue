@@ -141,7 +141,7 @@
                                                                               <td></td>
                                                                               <td></td>
                                                                               <td></td>
-                                                                              <td><i class="ion ion-md-clock "></i> 00:00:00    </td>
+                                                                              <td><i class="ion ion-md-clock "></i> {{ totalParcial = calcularParcialLengthVideo }}    </td>
                                                                             </tr>
                                                                           </tfoot>
                                                                     </table>
@@ -312,7 +312,7 @@
              calcularParcialLengthVideo: function(){
                  var resultado = 0;
                  for(var i = 0; i<this.arrayDetallePlaylist.length; i++){
-                     resultado =  (this.arrayDetallePlaylist[i].lenght)
+                     resultado =  resultado + parseInt(this.arrayDetallePlaylist[i].lenght)
                    
                  }
                   return resultado;
