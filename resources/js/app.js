@@ -23,7 +23,7 @@ window.Vue = require('vue');
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('example-second', require('./components/ExampleComponent2.vue').default);
 Vue.component('prueba-component', require('./components/PruebaComponent.vue').default);
-
+Vue.component('prueba-array', require('./components/pruebaArray.vue').default);
 
 
 /**

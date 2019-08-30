@@ -2630,6 +2630,107 @@ var message = ["vue.draggable", "draggable", "component", "for", "vue.js 2.0", "
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pruebaArray.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pruebaArray.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    invoice_items: [{
+      name: "Community / Support",
+      rate: 5.20,
+      quantity: 1,
+      activation_fee: 3.00,
+      category: "widgets"
+    }, {
+      name: "Infrastructure",
+      rate: 269.00,
+      quantity: 3,
+      activation_fee: 1.00,
+      category: "widgets"
+    }, {
+      name: "Infrastructure",
+      rate: 269.00,
+      quantity: 3,
+      activation_fee: 1.00,
+      category: "stuff"
+    }];
+  },
+  computed: {
+    // probably need a better name for this, but its just an example
+    itemsWithSubTotal: function itemsWithSubTotal() {
+      var _this = this;
+
+      return this.invoice_items.map(function (item) {
+        return {
+          item: item,
+          subtotal: _this.computeSubTotal(item)
+        };
+      });
+    },
+    // calculate the total of all the subtotalItems grouped by category
+    totalByCategory: function totalByCategory() {
+      // group the items by category
+      var grouped = this.itemsWithSubTotal.reduce(function (acc, val) {
+        // This line does everything the lines below do, but in a very
+        // terse, possibly confusing way.
+        //(acc[val.item.category] = acc[val.item.category] || []).push(val)
+        //if there is not already an array set up for the current
+        //category, add one
+        if (!acc[val.item.category]) acc[val.item.category] = []; // push the current value into the collection of values
+        // for this category
+
+        acc[val.item.category].push(val); // return the accumulator (object)
+
+        return acc;
+      }, {}); // create an object that has the total for each category
+
+      return Object.keys(grouped).reduce(function (acc, val) {
+        acc[val] = grouped[val].reduce(function (total, item) {
+          return total += item.subtotal;
+        }, 0);
+        return acc;
+      }, {});
+    }
+  },
+  methods: {
+    computeSubTotal: function computeSubTotal(invoice_item) {
+      //formatPrice is removed here because its not defined in the question
+      return parseFloat(invoice_item.rate) * parseFloat(invoice_item.quantity) + parseFloat(invoice_item.activation_fee);
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/bootstrap/dist/js/bootstrap.js":
 /*!*****************************************************!*\
   !*** ./node_modules/bootstrap/dist/js/bootstrap.js ***!
@@ -42088,6 +42189,121 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pruebaArray.vue?vue&type=template&id=70b26fe6&":
+/*!**************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pruebaArray.vue?vue&type=template&id=70b26fe6& ***!
+  \**************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { attrs: { id: "app" } }, [
+    _c(
+      "table",
+      _vm._l(_vm.itemsWithSubTotal, function(invoice_item, index) {
+        return _c("tr", { key: index }, [
+          _c("td", [_vm._v(_vm._s(invoice_item.name))]),
+          _vm._v(" "),
+          _c("td", [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: invoice_item.item.rate,
+                  expression: "invoice_item.item.rate"
+                }
+              ],
+              staticClass: "inline-edit",
+              attrs: { type: "number" },
+              domProps: { value: invoice_item.item.rate },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(invoice_item.item, "rate", $event.target.value)
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("td", [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: invoice_item.item.quantity,
+                  expression: "invoice_item.item.quantity"
+                }
+              ],
+              staticClass: "inline-edit",
+              attrs: { type: "number" },
+              domProps: { value: invoice_item.item.quantity },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(invoice_item.item, "quantity", $event.target.value)
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("td", [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: invoice_item.item.activation_fee,
+                  expression: "invoice_item.item.activation_fee"
+                }
+              ],
+              staticClass: "inline-edit",
+              attrs: { type: "number" },
+              domProps: { value: invoice_item.item.activation_fee },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(
+                    invoice_item.item,
+                    "activation_fee",
+                    $event.target.value
+                  )
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("td", { staticClass: "subtotal" }, [
+            _vm._v(_vm._s(invoice_item.subtotal))
+          ])
+        ])
+      }),
+      0
+    ),
+    _vm._v("\n  Total: " + _vm._s(_vm.totalByCategory["widgets"]) + "\n")
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js":
 /*!********************************************************************!*\
   !*** ./node_modules/vue-loader/lib/runtime/componentNormalizer.js ***!
@@ -57523,6 +57739,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 Vue.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]);
 Vue.component('example-second', __webpack_require__(/*! ./components/ExampleComponent2.vue */ "./resources/js/components/ExampleComponent2.vue")["default"]);
 Vue.component('prueba-component', __webpack_require__(/*! ./components/PruebaComponent.vue */ "./resources/js/components/PruebaComponent.vue")["default"]);
+Vue.component('prueba-array', __webpack_require__(/*! ./components/pruebaArray.vue */ "./resources/js/components/pruebaArray.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -57795,6 +58012,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PruebaComponent_vue_vue_type_template_id_c0fbcade___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PruebaComponent_vue_vue_type_template_id_c0fbcade___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/pruebaArray.vue":
+/*!*************************************************!*\
+  !*** ./resources/js/components/pruebaArray.vue ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _pruebaArray_vue_vue_type_template_id_70b26fe6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./pruebaArray.vue?vue&type=template&id=70b26fe6& */ "./resources/js/components/pruebaArray.vue?vue&type=template&id=70b26fe6&");
+/* harmony import */ var _pruebaArray_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./pruebaArray.vue?vue&type=script&lang=js& */ "./resources/js/components/pruebaArray.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _pruebaArray_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _pruebaArray_vue_vue_type_template_id_70b26fe6___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _pruebaArray_vue_vue_type_template_id_70b26fe6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/pruebaArray.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/pruebaArray.vue?vue&type=script&lang=js&":
+/*!**************************************************************************!*\
+  !*** ./resources/js/components/pruebaArray.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_pruebaArray_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./pruebaArray.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pruebaArray.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_pruebaArray_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/pruebaArray.vue?vue&type=template&id=70b26fe6&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/pruebaArray.vue?vue&type=template&id=70b26fe6& ***!
+  \********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_pruebaArray_vue_vue_type_template_id_70b26fe6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./pruebaArray.vue?vue&type=template&id=70b26fe6& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pruebaArray.vue?vue&type=template&id=70b26fe6&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_pruebaArray_vue_vue_type_template_id_70b26fe6___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_pruebaArray_vue_vue_type_template_id_70b26fe6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

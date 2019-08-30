@@ -128,6 +128,7 @@
                                                                                         <td>{{ videoDetalle.fecha_emision }}</td>
                                                                                         <td>{{ videoDetalle.nombre_video }}</td>
                                                                                         <td>{{ videoDetalle.lenght }}</td>
+                                                                                        
                                                                                         <td>
                                                                                         <button type="submit" class="btn btn-primary waves-effect waves-light mx-auto" @click="eliminarDetalleVideo(index)" >X</button>
                                                                                         </td>
@@ -313,7 +314,6 @@
                  var resultado = 0;
                  for(var i = 0; i<this.arrayDetallePlaylist.length; i++){
                      resultado =  resultado + parseInt(this.arrayDetallePlaylist[i].lenght)
-                   
                  }
                   return resultado;
 
