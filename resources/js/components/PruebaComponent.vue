@@ -90,7 +90,7 @@
             <div class="form-group row">
               <label for="example-time-input" class="col-sm-2 col-form-label">Hora Inicio</label>
               <div class="col-sm-10">
-                <input class="form-control" type="time" value="13:45:00" id="example-time-input" />
+                <input class="form-control" type="time" step="1" value="13:45:00" v-model= "hora_inicio" id="example-time-input" />
               </div>
             </div>
 
@@ -142,9 +142,9 @@
                 <tr v-for="(videoDetalle,index) in itemsWithSubTotal" :key="index">
                   <td scope="row">{{videoDetalle.item1.id_video}}</td>
                   <td>{{ videoDetalle.item1.nombre_video }}</td>
-                  <td>{{ videoDetalle.subinit }}</td>
-                  <td>{{ videoDetalle.item1.testduration }}</td>
-                  <td>{{ videoDetalle.subtotal }}</td>
+                  <td>{{ parseToHour(videoDetalle.subinit) }}</td>
+                  <td>{{ parseToHour(videoDetalle.item1.testduration) }}</td>
+                  <td>{{ parseToHour(videoDetalle.subtotal) }}</td>
 
                   <td>
                     <button
@@ -164,7 +164,7 @@
                   <td></td>
                   <td>
                     <i class="ion ion-md-clock"></i>
-                    {{ totalParcial = calcularParcialLengthVideo }}
+                    {{ totalParcial = parseToHour(total()) }}
                   </td>
                 </tr>
               </tfoot>
@@ -220,8 +220,8 @@ export default {
       testduration: 0,
       testinit: 0,
       usuario_id: 0,
-      nombre_playlist: "",
       hora_inicio: 0,
+      nombre_playlist: "",
       fecha_emision: 0,
       loop: 0,
       auto_start: 0,
@@ -283,7 +283,7 @@ export default {
         nombre_video: data["nombre_video"],
         lenght: data["lenght"],
         testinit: 55,
-        testduration: Math.floor(Math.random() * 6) + 10  
+        testduration: Math.floor(Math.random() * 6) + 10,
       });
     },
     eliminarDetalleVideo(index) {
@@ -334,6 +334,14 @@ export default {
       return this.subTotalAcum;
     },
 
+    parseToHour(seconds){
+             
+             return moment().startOf('day').seconds(seconds).format('H:mm:ss');
+    },
+
+    total(){
+      return this.subTotalAcum
+    },
 
 
   },
@@ -349,7 +357,14 @@ export default {
 
     itemsWithSubTotal() {
       //var itemsx = [];
-      this.subTotalAcum = 10;
+      
+      //  console.log(this.hora_inicio); 
+      //  console.log(moment(this.hora_inicio, 'HH:mm:ss: A').diff(moment().startOf('day'), 'seconds'));
+      
+      this.subTotalAcum = moment(this.hora_inicio, 'HH:mm:ss: A').diff(moment().startOf('day'), 'seconds')
+
+      //this.subTotalAcum = moment(this.hora_inicio, 'HH:mm:ss A').diff(moment().startOf('day'), 'seconds');
+      //this.subTotalAcum=this.hora_inicio;
       //console.log(this.arrayDetallePlaylist)
       //itemsx = this.arrayDetallePlaylist.map(item1 => ({item1,subtotal: this.computeSubTotal(item1),subinit: this.computeInit(item1)}))
       //this.arrayDetallePlaylist.testinit = 22;
@@ -360,6 +375,7 @@ export default {
         subtotal: this.computeSubTotal(item1)
         
       }));
+
     },
 
     dragOptions() {
@@ -371,6 +387,7 @@ export default {
       };
     }
   },
+
   mounted() {
     this.listarVideo();
     this.selectUsuarios();
