@@ -17,7 +17,7 @@
 
 @section('content')
                 <div id="app">
-                    <prueba-array></prueba-array>
+                    <prueba-component></prueba-component>
                 </div>
 @endsection
 

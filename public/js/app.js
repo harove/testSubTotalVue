@@ -2491,6 +2491,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 var message = ["vue.draggable", "draggable", "component", "for", "vue.js 2.0", "based", "on", "Sortablejs"];
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2503,10 +2516,12 @@ var message = ["vue.draggable", "draggable", "component", "for", "vue.js 2.0", "
       id_video: 0,
       id_usuario: 0,
       id_canal: 0,
-      nombre_video: '',
+      nombre_video: "",
       lenght: 0,
+      testduration: 0,
+      testinit: 0,
       usuario_id: 0,
-      nombre_playlist: '',
+      nombre_playlist: "",
       hora_inicio: 0,
       fecha_emision: 0,
       loop: 0,
@@ -2523,7 +2538,10 @@ var message = ["vue.draggable", "draggable", "component", "for", "vue.js 2.0", "
           order: index + 1
         };
       }),
-      drag: false
+      drag: false,
+      itemsx: [],
+      subTotalAcum: 0,
+      subInitAcum: 0
     };
   },
   components: {
@@ -2532,7 +2550,7 @@ var message = ["vue.draggable", "draggable", "component", "for", "vue.js 2.0", "
   methods: {
     listarVideo: function listarVideo() {
       var esto = this;
-      var url = '/videos/listarVideos';
+      var url = "/videos/listarVideos";
       axios.get(url).then(function (response) {
         esto.arrayVideo = response.data;
         console.log(response);
@@ -2543,13 +2561,13 @@ var message = ["vue.draggable", "draggable", "component", "for", "vue.js 2.0", "
     registrarPlaylist: function registrarPlaylist() {
       var esto = this;
       axios.post("/playlist/registrar", {
-        'id_usuario': esto.id_usuario,
-        'nombre_playlist': esto.nombre_playlist,
-        'hora_inicio': esto.hora_inicio,
-        'fecha_emision': esto.fecha_emision,
-        'loop': esto.loop,
-        'auto_start': esto.auto_start,
-        'data': esto.arrayDetallePlaylist
+        id_usuario: esto.id_usuario,
+        nombre_playlist: esto.nombre_playlist,
+        hora_inicio: esto.hora_inicio,
+        fecha_emision: esto.fecha_emision,
+        loop: esto.loop,
+        auto_start: esto.auto_start,
+        data: esto.arrayDetallePlaylist
       }).then(function (response) {
         console.log(response);
         console.log("ingresado correctamente");
@@ -2559,11 +2577,12 @@ var message = ["vue.draggable", "draggable", "component", "for", "vue.js 2.0", "
     },
     agregarDetalleVideo: function agregarDetalleVideo() {
       var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-      var esto = this;
-      esto.arrayDetallePlaylist.push({
-        id_video: data['id'],
-        nombre_video: data['nombre_video'],
-        lenght: data['lenght']
+      this.arrayDetallePlaylist.push({
+        id_video: data["id"],
+        nombre_video: data["nombre_video"],
+        lenght: data["lenght"],
+        testinit: 55,
+        testduration: Math.floor(Math.random() * 6) + 10
       });
     },
     eliminarDetalleVideo: function eliminarDetalleVideo(index) {
@@ -2572,7 +2591,7 @@ var message = ["vue.draggable", "draggable", "component", "for", "vue.js 2.0", "
     },
     selectUsuarios: function selectUsuarios() {
       var esto = this;
-      var url = '/usuarios/selectUsuarios';
+      var url = "/usuarios/selectUsuarios";
       axios.get(url).then(function (response) {
         console.log(response);
         var respuesta = response.data;
@@ -2583,7 +2602,7 @@ var message = ["vue.draggable", "draggable", "component", "for", "vue.js 2.0", "
     },
     selectCanales: function selectCanales() {
       var esto = this;
-      var url = '/canales/selectCanales';
+      var url = "/canales/selectCanales";
       axios.get(url).then(function (response) {
         console.log(response);
         var respuesta = response.data;
@@ -2601,6 +2620,11 @@ var message = ["vue.draggable", "draggable", "component", "for", "vue.js 2.0", "
       this.list = this.list.sort(function (a, b) {
         return a.order - b.order;
       });
+    },
+    computeSubTotal: function computeSubTotal(item) {
+      //formatPrice is removed here because its not defined in the question
+      this.subTotalAcum = this.subTotalAcum + item.testduration;
+      return this.subTotalAcum;
     }
   },
   computed: {
@@ -2612,6 +2636,23 @@ var message = ["vue.draggable", "draggable", "component", "for", "vue.js 2.0", "
       }
 
       return resultado;
+    },
+    itemsWithSubTotal: function itemsWithSubTotal() {
+      var _this = this;
+
+      //var itemsx = [];
+      this.subTotalAcum = 10; //console.log(this.arrayDetallePlaylist)
+      //itemsx = this.arrayDetallePlaylist.map(item1 => ({item1,subtotal: this.computeSubTotal(item1),subinit: this.computeInit(item1)}))
+      //this.arrayDetallePlaylist.testinit = 22;
+      //console.log(itemsx)
+
+      return this.arrayDetallePlaylist.map(function (item1) {
+        return {
+          item1: item1,
+          subinit: _this.subTotalAcum,
+          subtotal: _this.computeSubTotal(item1)
+        };
+      });
     },
     dragOptions: function dragOptions() {
       return {
@@ -41643,7 +41684,7 @@ var render = function() {
         _c("div", { staticClass: "card-body" }, [
           _vm._m(0),
           _vm._v(" "),
-          _c("table", { staticClass: "table table-sm  m-0 " }, [
+          _c("table", { staticClass: "table table-sm m-0" }, [
             _vm._m(1),
             _vm._v(" "),
             _c(
@@ -41687,7 +41728,7 @@ var render = function() {
       _c("div", { staticClass: "card" }, [
         _c("div", { staticClass: "card-body" }, [
           _c("form", { attrs: { action: "#" } }, [
-            _c("div", { staticClass: "form-group row " }, [
+            _c("div", { staticClass: "form-group row" }, [
               _c(
                 "label",
                 {
@@ -41890,22 +41931,23 @@ var render = function() {
                     _vm.dragOptions,
                     false
                   ),
-                  _vm._l(_vm.arrayDetallePlaylist, function(
-                    videoDetalle,
-                    index
-                  ) {
+                  _vm._l(_vm.itemsWithSubTotal, function(videoDetalle, index) {
                     return _c("tr", { key: index }, [
                       _c("td", { attrs: { scope: "row" } }, [
-                        _vm._v(_vm._s(videoDetalle.id_video))
+                        _vm._v(_vm._s(videoDetalle.item1.id_video))
                       ]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(videoDetalle.nombre_video))]),
+                      _c("td", [
+                        _vm._v(_vm._s(videoDetalle.item1.nombre_video))
+                      ]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(videoDetalle.fecha_emision))]),
+                      _c("td", [_vm._v(_vm._s(videoDetalle.subinit))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(videoDetalle.nombre_video))]),
+                      _c("td", [
+                        _vm._v(_vm._s(videoDetalle.item1.testduration))
+                      ]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(videoDetalle.lenght))]),
+                      _c("td", [_vm._v(_vm._s(videoDetalle.subtotal))]),
                       _vm._v(" "),
                       _c("td", [
                         _c(
@@ -41939,13 +41981,13 @@ var render = function() {
                     _c("td"),
                     _vm._v(" "),
                     _c("td", [
-                      _c("i", { staticClass: "ion ion-md-clock " }),
+                      _c("i", { staticClass: "ion ion-md-clock" }),
                       _vm._v(
-                        " " +
+                        "\n                  " +
                           _vm._s(
                             (_vm.totalParcial = _vm.calcularParcialLengthVideo)
                           ) +
-                          "    "
+                          "\n                "
                       )
                     ])
                   ])
@@ -41961,11 +42003,7 @@ var render = function() {
               staticClass: "btn btn-primary waves-effect waves-light mr-1",
               attrs: { type: "submit" }
             },
-            [
-              _vm._v(
-                "\n                                                                     Guardar Lista\n                                                                 "
-              )
-            ]
+            [_vm._v("Guardar Lista")]
           ),
           _vm._v(" "),
           _vm._m(6)
@@ -41993,7 +42031,7 @@ var staticRenderFns = [
           { staticClass: "btn btn-success", attrs: { type: "button" } },
           [
             _c("i", { staticClass: "ion ion-md-add-circle" }),
-            _vm._v(" Agregar Live")
+            _vm._v(" Agregar Live\n          ")
           ]
         ),
         _vm._v(" "),
@@ -42073,10 +42111,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "form-group row col-sm-12" }, [
       _c(
         "label",
-        {
-          staticClass: " col-form-label",
-          attrs: { for: "example-time-input" }
-        },
+        { staticClass: "col-form-label", attrs: { for: "example-time-input" } },
         [_vm._v("Loop")]
       ),
       _vm._v(" "),
@@ -42091,10 +42126,7 @@ var staticRenderFns = [
       _vm._v(" "),
       _c(
         "label",
-        {
-          staticClass: " col-form-label",
-          attrs: { for: "example-time-input" }
-        },
+        { staticClass: "col-form-label", attrs: { for: "example-time-input" } },
         [_vm._v("AutoStart")]
       ),
       _vm._v(" "),
@@ -42113,11 +42145,7 @@ var staticRenderFns = [
           staticClass: "btn btn-primary waves-effect waves-light mr-1",
           attrs: { type: "submit" }
         },
-        [
-          _vm._v(
-            "\n                                                                         Crear\n                                                                     "
-          )
-        ]
+        [_vm._v("Crear")]
       )
     ])
   },
@@ -42131,11 +42159,11 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Hora de Inicio")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Salida")]),
+        _c("th", [_vm._v("testinit")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Nombre de Vídeo")]),
+        _c("th", [_vm._v("testduration")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Duración")]),
+        _c("th", [_vm._v("testsubtotal")]),
         _vm._v(" "),
         _c("th", [_vm._v("Borrar")])
       ])
@@ -42153,9 +42181,7 @@ var staticRenderFns = [
       },
       [
         _c("i", { staticClass: "ti-control-play" }),
-        _vm._v(
-          " Preview\n                                                                     "
-        )
+        _vm._v(" Preview\n        ")
       ]
     )
   },
